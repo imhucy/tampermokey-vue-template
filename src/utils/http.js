@@ -40,34 +40,34 @@
 // Important: if you want to use this method then please also check the documentation about @connect.
 import qs from 'qs'
 const http = {
-  get: function (url, params = {}, config) {
-    return new Promise(function (resolve, reject) {
+  get(url, params = {}, config) {
+    return new Promise((resolve, reject) => {
       const query = qs.stringify(params)
       const detail = {
-        url: url + '?' + query,
+        url: `${url}?${query}`,
         method: 'GET',
         // timeout a timeout in ms
         timeout: 60000,
         nocache: true,
         // responseType one of arraybuffer, blob, json
-        onloadstart: function (...args) {
+        onloadstart(...args) {
           console.log('onloadstart', args)
         },
-        onreadystatechange: function (a, ...args) {
+        onreadystatechange(a, ...args) {
           console.log('onreadystatechange', a)
           console.log('onreadystatechange', args)
         },
-        onprogress: function (detail) {
+        onprogress(detail) {
           console.log('onprogress', detail)
         },
-        ontimeout: function (err) {
+        ontimeout() {
           reject(new Error('请求超时'))
         },
-        onerror: function (err) {
-          console.log('onerror', arguments)
+        onerror(err) {
+          console.log('onerror', err)
           reject(err)
         },
-        onload: function (response) {
+        onload(response) {
           // finalUrl - 最终地址, 在数据载入后重定向的最后地址
           // readyState - the ready state
           // status - the request status
@@ -76,22 +76,22 @@ const http = {
           // response - the response data as object if details.responseType was set
           // responseXML - the response data as XML document
           // responseText - the response data as plain string
-          console.log('onload', arguments)
+          console.log('onload', response)
           resolve(response.responseText || response.response || response.responseXML)
         },
-        ...config
+        ...config,
       }
       GM_xmlhttpRequest(detail)
     })
   },
-  download: function (url, name, config) {
-    return new Promise(function (resolve, reject) {
+  download(url, name, config) {
+    return new Promise((resolve, reject) => {
       GM_download({
         saveAs: false,
         url,
         name,
         ...config,
-        onprogress: function (res) {
+        onprogress(res) {
           console.log('onprogress', res)
           const percent1 = (res.done / res.total) * 100
           const percent2 = (res.loaded / res.total) * 100
@@ -100,18 +100,18 @@ const http = {
           console.log('loaded', percent2.toFixed(2))
           console.log('position', percent3.toFixed(2))
         },
-        onerror: function (err) {
+        onerror(err) {
           reject(err)
         },
-        ontimeout: function () {
+        ontimeout() {
           reject(new Error('请求超时'))
         },
-        onload: function (res) {
+        onload(res) {
           resolve(res)
-        }
+        },
       })
     })
-  }
+  },
 }
 export default http
 export function install() {

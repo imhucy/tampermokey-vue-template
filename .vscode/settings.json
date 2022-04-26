@@ -3,5 +3,18 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
   },
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "vue",
+    "html"
+  ],
+  "vetur.format.defaultFormatter.js": "none",
   "editor.formatOnSave": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  }
 }

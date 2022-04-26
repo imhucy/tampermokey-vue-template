@@ -6,9 +6,8 @@ export default {
     keys.map(common).forEach((common, i) => {
       const Component = common.default
       const filename = keys[i].split('/')[1].split('.')[0]
-      if (filename !== 'index') {
+      if (filename !== 'index')
         Vue.component(filename, Component)
-      }
     })
-  }
+  },
 }

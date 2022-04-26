@@ -1,3 +1,17 @@
 {
-  "extends": "@antfu"
+  "extends": "@antfu",
+  "globals": {
+    "$": true,
+    "Vue": true,
+    "_": true,
+    "GM_setValue": true,
+    "GM_getValue": true,
+    "GM_addStyle": true,
+    "GM_xmlhttpRequest": true,
+    "GM_download": true
+  },
+  "rules": {
+    "no-console": "off",
+    "no-new": "off"
+  }
 }
