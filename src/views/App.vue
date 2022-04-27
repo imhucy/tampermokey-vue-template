@@ -8,7 +8,7 @@ export default {
   },
   data() {
     return {
-      isOpen: 2,
+      isOpen: 0,
       currentPage: pageList[0].name,
       pageList,
     }

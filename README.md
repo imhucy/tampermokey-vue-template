@@ -1,22 +1,25 @@
 # Tampermokey vue template
 
-use vue + scss + jquery build userscript
-use prettier format your code easily
+use vue + scss build your userscript GUI
+
+use eslint validate and format your code easily
 
 ## 开发环境 Require
 
 - Node
-- npm
+- pnpm
 - Git
+- 推荐使用 vscode 进行开发
 
 ## 如何使用 Usage
 
-- clone code without git `degit imhucy/tampermokey-vue-template my-app`
-- if you don't install `degit` just `pnpm install -g degit`
-- 修改 `header.js` 检查你需要引入的包
+1. clone code without git `degit imhucy/tampermokey-vue-template my-app`
+  - if you don't install `degit` just `pnpm install -g degit`
+- 检查 `header.js` 文件修改你需要引入的包
 - `pnpm install`
 - `pnpm dev`
 - 将文件 `./test/header.js` 复制到 `TamperMonkey script` 编辑器.
+- 删除`pages/Home.vue`里的内容改成你的页面
 - 打开你要修改的网页 Enjoy it!
 ## 功能 Features
 
