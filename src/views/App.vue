@@ -1,24 +1,40 @@
 <script>
+const pages = require.context('../pages', false, /\.vue$/)
+const pagesKeys = pages.keys()
+const PageComponents = {}
+const pageList = []
+pagesKeys.map(pages).forEach((pageComponent, i) => {
+  const PageComponent = pageComponent.default
+  const pagePath = pagesKeys[i]
+  const temp_1 = pagePath.split('/')
+  const filename = temp_1.pop()
+  const temp_2 = filename.split('.')
+  const componentName = temp_2[0]
+  PageComponents[componentName] = PageComponent
+  pageList.push({ zhName: PageComponent.zhName, name: componentName })
+})
+console.log(PageComponents)
 export default {
   name: 'App',
+  components: {
+    ...PageComponents,
+  },
   data() {
     return {
-      isOpen: false,
-      page: 'home',
-      pages: [
-        'home',
-        'page-1',
-        'page-2',
-        'page-3',
-      ],
+      isOpen: 0,
+      currentPage: pageList[0].name,
+      pageList,
     }
   },
-  mounted() {
-    let i = 1
-    setInterval(() => {
-      this.page = this.pages[i++ % this.pages.length]
-    }, 3000)
+  watch: {
+    isOpen() {
+      if (this.isOpen > 1)
+        window.addEventListener('keyup', this.handleEscHotkey)
+      else
+        window.removeEventListener('keyup', this.handleEscHotkey)
+    },
   },
+  mounted() {},
   methods: {
     open() {
       this.isOpen = 1
@@ -26,10 +42,16 @@ export default {
     close() {
       this.isOpen = 0
     },
+    handleEscHotkey(event) {
+      if (event.keyCode === 27)
+        this.close()
+    },
     end(evt) {
-      console.log(evt)
-      if (this.isOpen === 1)
-        this.isOpen = 2
+      if (this.isOpen === 1) {
+        setTimeout(() => {
+          this.isOpen = 2
+        }, 100)
+      }
     },
   },
 }
@@ -37,40 +59,20 @@ export default {
 
 <template>
   <div class="tm-main-container">
-    <div class="tm-main-start-ball" :class="['is-open-' + isOpen]" @click="open" @transitionend="end">
+    <div
+      class="tm-main-start-ball"
+      :class="['is-open-' + isOpen]"
+      @click="open"
+      @transitionend="end"
+    >
+      <div class="icon-menu">
+        <div class="icon-menu__line"></div>
+        <div class="icon-menu__line"></div>
+        <div class="icon-menu__line"></div>
+      </div>
     </div>
-    <div v-if="isOpen > 1" class="tm-main-pages">
-      <button class="close-button" @click="close">
-        <div class="close-button__line close-button__line--first"></div>
-        <div class="close-button__line close-button__line--second"></div>
-      </button>
-      {{ page }}
-      <transition name="fade">
-        <div v-if="isOpen > 1 && page === 'home'" class="tm-main-page">
-          <p>{{ p }}</p>
-          <p>
-            我们的目标是提供这样一个仓库，让它尽可能全面收录优秀的开源库，并免费为之提供 CDN 加速服务，使之有更好的访问速度和稳定的环境。同时，我们也提供开源库源接入的入口，让所有人都可以提交开源库，包括 JavaScript、CSS、图片和 swf 等静态文件。
-          </p>
-          <p>
-            我们的目标是提供这样一个仓库，让它尽可能全面收录优秀的开源库，并免费为之提供 CDN 加速服务，使之有更好的访问速度和稳定的环境。同时，我们也提供开源库源接入的入口，让所有人都可以提交开源库，包括 JavaScript、CSS、图片和 swf 等静态文件。
-          </p>
-          <p>
-            我们的目标是提供这样一个仓库，让它尽可能全面收录优秀的开源库，并免费为之提供 CDN 加速服务，使之有更好的访问速度和稳定的环境。同时，我们也提供开源库源接入的入口，让所有人都可以提交开源库，包括 JavaScript、CSS、图片和 swf 等静态文件。
-          </p>
-          <p>
-            我们的目标是提供这样一个仓库，让它尽可能全面收录优秀的开源库，并免费为之提供 CDN 加速服务，使之有更好的访问速度和稳定的环境。同时，我们也提供开源库源接入的入口，让所有人都可以提交开源库，包括 JavaScript、CSS、图片和 swf 等静态文件。
-          </p>
-        </div>
-        <div v-else-if="isOpen > 1 && page === 'page-1'" class="tm-main-page">
-          <p>{{ page }}</p>
-        </div>
-        <div v-else-if="isOpen > 1 && page === 'page-2'" class="tm-main-page">
-          <p>{{ page }}</p>
-        </div>
-        <div v-else-if="isOpen > 1 && page === 'page-3'" class="tm-main-page">
-          <p>{{ page }}</p>
-        </div>
-      </transition>
-    </div>
+    <tm-page v-model="currentPage" :is-open.sync="isOpen" :pages="pageList">
+      <component :is="currentPage"></component>
+    </tm-page>
   </div>
 </template>

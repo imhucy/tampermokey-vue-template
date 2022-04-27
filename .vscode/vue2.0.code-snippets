@@ -1,0 +1,105 @@
+{
+	// snippet 文档en: https://code.visualstudio.com/docs/editor/userdefinedsnippets
+	// snippet 文档zh: https://blog.csdn.net/maokelong95/article/details/54379046
+  // snippet 代码生成: https://snippet-generator.app/
+	"vue page generate": {
+    "prefix": "vpage",
+    "body": [
+      "<script>",
+      "export default {",
+      "  name: 'Tm${TM_FILENAME_BASE}',",
+      "  zhName: '${TM_FILENAME_BASE}',",
+      "  data() {",
+      "    return {}",
+      "  },",
+      "  computed: {},",
+      "  watch: {},",
+      "  created() {},",
+      "  mounted() {},",
+      "  beforeDestroy() {},",
+      "  methods: {},",
+      "}",
+      "</script>",
+      "<template>",
+      "  <div class=\"tm-main-page ${TM_FILENAME_BASE/(^[A-Z][a-z]*)|([A-Z][a-z]*)/${1:/downcase}${2:+-}${2:/downcase}/g}\">",
+      "    ${TM_FILENAME_BASE}",
+      "  </div>",
+      "</template>",
+      ""
+    ],
+    "description": "vue page generate"
+  },
+  "vue component generate": {
+    "prefix": "vcomponent",
+    "body": [
+      "<script>",
+      "export default {",
+      "  name: '${TM_FILENAME_BASE}',",
+      "  props: {",
+      "    value: {",
+      "      type: [String, Number, Boolean, Object, Array],",
+      "      default: '',",
+      "    },",
+      "  },",
+      "  data() {",
+      "    return {}",
+      "  },",
+      "  computed: {},",
+      "  watch: {",
+      "    value: {",
+      "      handler: 'initValue',",
+      "      immediate: true,",
+      "    },",
+      "  },",
+      "  created() {",
+      "    this.init()",
+      "  },",
+      "  mounted() {},",
+      "  beforeDestroy() {},",
+      "  methods: {",
+      "    init() {",
+      "      // do something",
+      "    },",
+      "    initValue() {",
+      "      // 引用类型记得解构",
+      "      this.innerValue = this.value",
+      "    },",
+      "    updateValue() {",
+      "      // 引用类型记得解构",
+      "      this.\\$emit('input', this.innerValue)",
+      "    },",
+      "  },",
+      "}",
+      "</script>",
+      "<template>",
+      "  <div class=\"${TM_FILENAME_BASE/(^[A-Z][a-z]*)|([A-Z][a-z]*)/${1:/downcase}${2:+-}${2:/downcase}/g}\">",
+      "    {{ innerValue }}",
+      "  </div>",
+      "</template>",
+      ""
+    ],
+    "description": "vue component generate"
+  },
+  "flex center": {
+    "prefix": "flex-center",
+    "body": [
+      "display: flex;",
+      "flex-direction: column;",
+      "align-items: center;",
+      "justify-content: center;"
+    ],
+    "description": "flex-center"
+  },
+  "absolute center layout": {
+    "prefix": "abs-center",
+    "body": [
+      "position: absolute;",
+      "top: 0;",
+      "left: 0;",
+      "right: 0;",
+      "bottom: 0;",
+      "margin: auto;"
+    ],
+    "description": "absolute center layout"
+  }
+}

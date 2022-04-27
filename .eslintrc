@@ -13,6 +13,10 @@
   "rules": {
     "no-console": "off",
     "no-new": "off",
-    "vue/html-self-closing": "off"
+    "vue/html-self-closing": "off",
+    "vue/no-deprecated-events-api": "off",
+    "vue/require-explicit-emits": "off",
+    "vue/no-deprecated-destroyed-lifecycle": "off",
+    "vue/no-deprecated-v-bind-sync": "off"
   }
 }

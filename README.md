@@ -9,7 +9,7 @@ use prettier format your code easily
 - npm
 - Git
 
-## 用例 Usage
+## 如何使用 Usage
 
 - clone code without git `degit imhucy/tampermokey-vue-template my-app`
 - if you don't install `degit` just `pnpm install -g degit`

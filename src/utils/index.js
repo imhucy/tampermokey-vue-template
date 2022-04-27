@@ -13,9 +13,9 @@ export function fmtDate(date) {
       pad(d.getMonth() + 1),
       pad(d.getDate()),
     ].join('-'), [
-      d.getHours(),
-      d.getMinutes(),
-      d.getSeconds(),
+      pad(d.getHours()),
+      pad(d.getMinutes()),
+      pad(d.getSeconds()),
     ].join(':'),
   ].join(' ')
 }

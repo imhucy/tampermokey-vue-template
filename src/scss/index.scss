@@ -1,12 +1,14 @@
+$color-primary: #007bbb;
+$aside-width: 200px;
 .tm-main-container {
     position: fixed;
     z-index: 999999999;
-    }
+}
 
 .tm-main-start-ball {
-    width: 100px;
-    height: 100px;
-    background-color: aqua;
+    width: 50px;
+    height: 50px;
+    background-color: $color-primary;
     color: #fff;
     font-weight: bold;
     position: fixed;
@@ -16,10 +18,16 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
     transition: all 0.3s ease-out;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3;
     &:hover {
+        opacity: 1;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
     }
     &.is-open-1 {
+        opacity: 1;
         width: 100%;
         height: 100vh;
         border-radius: 0;
@@ -33,8 +41,34 @@
         left: 0;
         bottom: 0;
         opacity: 0;
+        .icon-menu,
+        .icon-menu__line {
+            opacity: 0;
+        }
     }
 }
+
+.icon-menu {
+    width: 20px;
+    height: 20px;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.icon-menu__line {
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+.icon-menu,
+.icon-menu__line {
+    transition: all 0.3s ease-out;
+}
+
 
 .tm-main-pages {
     position: fixed;
@@ -42,29 +76,77 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: aqua;
+    background-color: $color-primary;
+    display: flex;
+}
+
+.tm-main-pages__nav {
+    width: $aside-width;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: darken($color-primary, 10%);
+}
+
+.tm-main-pages__nav-item {
+    user-select: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+    &.is-active, &:hover {
+        background-color: $color-primary;
+    }
+    &:last-child {
+        margin-top: 20px;
+    }
 }
 
 .tm-main-page {
-    background-color: #00eeee;
     color: #fff;
+    min-height: 300px;
+    flex: 1 0 0;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: red;
 }
 
 .fade-enter,
 .fade-leave-to {
-    opacity: 0
+    opacity: 0;
 }
 
 .fade-leave,
 .fade-enter-to {
-    opacity: 1
+    opacity: 1;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
+.slide-fade-enter-active {
+    transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+}
 
 .close-button {
     /* Reset */
@@ -116,3 +198,4 @@
     height: 100%;
     width: 5px;
 }
+
