@@ -1,19 +1,6 @@
 <script>
-const pages = require.context('../pages', false, /\.vue$/)
-const pagesKeys = pages.keys()
-const PageComponents = {}
-const pageList = []
-pagesKeys.map(pages).forEach((pageComponent, i) => {
-  const PageComponent = pageComponent.default
-  const pagePath = pagesKeys[i]
-  const temp_1 = pagePath.split('/')
-  const filename = temp_1.pop()
-  const temp_2 = filename.split('.')
-  const componentName = temp_2[0]
-  PageComponents[componentName] = PageComponent
-  pageList.push({ zhName: PageComponent.zhName, name: componentName })
-})
-console.log(PageComponents)
+import { loadPages } from '@utils'
+const { PageComponents, pageList } = loadPages()
 export default {
   name: 'App',
   components: {
@@ -21,7 +8,7 @@ export default {
   },
   data() {
     return {
-      isOpen: 0,
+      isOpen: 2,
       currentPage: pageList[0].name,
       pageList,
     }

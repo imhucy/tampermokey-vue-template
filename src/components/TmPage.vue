@@ -10,7 +10,9 @@ export default {
     pages: Array,
   },
   data() {
-    return {}
+    return {
+      isOpenWhenMobile: false,
+    }
   },
   computed: {},
   watch: {
@@ -33,9 +35,17 @@ export default {
     },
     updateValue(val) {
       this.$emit('input', val)
+      this.isOpenWhenMobile = false
     },
     updateIsOpen(val) {
       this.$emit('update:isOpen', val)
+      this.isOpenWhenMobile = false
+    },
+    handleOpen() {
+      this.isOpenWhenMobile = true
+    },
+    handleClose() {
+      this.isOpenWhenMobile = false
     },
   },
 }
@@ -43,7 +53,25 @@ export default {
 <template>
   <transition name="fade" mode="out-in">
     <div v-if="isOpen >= 1" class="tm-main-pages">
-      <div class="tm-main-pages__nav">
+      <!-- 移动端菜单呼出 -->
+      <transition name="fade">
+        <div
+          v-if="isOpenWhenMobile"
+          class="hidden-sm-and-up when-xs-mask"
+          @click="handleClose"
+        ></div>
+      </transition>
+      <div class="hidden-sm-and-up when-xs-btn" @click="handleOpen">
+        <div class="icon-menu">
+          <div class="icon-menu__line"></div>
+          <div class="icon-menu__line"></div>
+          <div class="icon-menu__line"></div>
+        </div>
+      </div>
+      <div
+        class="tm-main-pages__nav"
+        :class="{'is-open-when-mobile': isOpenWhenMobile}"
+      >
         <div
           v-for="nav in pages"
           :key="nav"
@@ -54,7 +82,7 @@ export default {
           {{ nav.zhName }}
         </div>
         <div class="tm-main-pages__nav-item" @click="updateIsOpen(0)">
-          Close
+          关闭（Esc）
         </div>
       </div>
       <transition name="fade" mode="out-in">

@@ -1,0 +1,52 @@
+// Break-point
+$sm: 768px !default;
+$md: 992px !default;
+$lg: 1200px !default;
+$xl: 1920px !default;
+
+$breakpoints: (
+  'xs': '(max-width: #{$sm})',
+  'sm': '(min-width: #{$sm})',
+  'md': '(min-width: #{$md})',
+  'lg': '(min-width: #{$lg})',
+  'xl': '(min-width: #{$xl})',
+) !default;
+
+$breakpoints-spec: (
+  // w < sm 时 隐藏
+  'xs-only': '(max-width: #{$sm})',
+  // w > sm 时 隐藏
+  'sm-and-up': '(min-width: #{$sm})',
+  // md > w > sm 时 隐藏
+  'sm-only': '(min-width: #{$sm}) and (max-width: #{$md})',
+  // w < md
+  'sm-and-down': '(max-width: #{$md})',
+  // w > md
+  'md-and-up': '(min-width: #{$md})',
+  // lg > w > md
+  'md-only': '(min-width: #{$md}) and (max-width: #{$lg})',
+  // w < lg
+  'md-and-down': '(max-width: #{$lg})',
+  // w > lg
+  'lg-and-up': '(min-width: #{$lg})',
+  // xl > w > lg
+  'lg-only': '(min-width: #{$lg}) and (max-width: #{$xl})',
+  // w < xl
+  'lg-and-down': '(max-width: #{$xl})',
+  // w > xl
+  'xl-only': '(min-width: #{$xl})',
+) !default;
+
+/* Break-points
+ -------------------------- */
+@mixin res($key, $map: $breakpoints) {
+  // loop breakpoint Map, return if present
+  @if map-has-key($map, $key) {
+    $range: unquote(map-get($map, $key));
+    @media only screen and #{$range} {
+      @content;
+    }
+  } @else {
+    @warn "Undefined points: `#{$map}`";
+  }
+}

@@ -1,10 +1,13 @@
+@import "./transition.scss";
+@import "./responsive.scss";
 $color-primary: #007bbb;
 $aside-width: 200px;
+/* 提升根结点层级 */
 .tm-main-container {
     position: fixed;
     z-index: 999999999;
 }
-
+/* 界面开始按钮 */
 .tm-main-start-ball {
     width: 50px;
     height: 50px;
@@ -71,7 +74,7 @@ $aside-width: 200px;
     transition: all 0.3s ease-out;
 }
 
-
+/* 带导航的页面 */
 .tm-main-pages {
     position: fixed;
     top: 0;
@@ -81,7 +84,6 @@ $aside-width: 200px;
     background-color: $color-primary;
     display: flex;
 }
-
 .tm-main-pages__nav {
     width: $aside-width;
     display: flex;
@@ -89,8 +91,8 @@ $aside-width: 200px;
     align-items: center;
     justify-content: center;
     background-color: darken($color-primary, 10%);
+    transition: all 0.3s ease-out;
 }
-
 .tm-main-pages__nav-item {
     user-select: none;
     color: #fff;
@@ -102,102 +104,72 @@ $aside-width: 200px;
     line-height: 40px;
     overflow: hidden;
     transition: all 0.3s ease-out;
-    &.is-active, &:hover {
+    &.is-active,
+    &:hover {
         background-color: $color-primary;
     }
     &:last-child {
         margin-top: 20px;
     }
 }
-
 .tm-main-page {
     color: #fff;
     min-height: 300px;
     flex: 1 0 0;
 }
 
-.circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: red;
+/* 响应式 */
+
+// .hidden {
+//     @each $break-point-name, $value in $--breakpoints-spec {
+//         &-#{$break-point-name} {
+//             @include res($break-point-name, $--breakpoints-spec) {
+//                 display: none !important;
+//             }
+//         }
+//     }
+// }
+.hidden {
+    @each $break-point-name, $value in $breakpoints-spec {
+        &-#{$break-point-name} {
+            @include res($break-point-name, $breakpoints-spec) {
+                // background-color: red!important;
+                display: none !important;
+            }
+        }
+    }
 }
 
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
+@include res(xs) {
+    .tm-main-pages__nav {
+        width: $aside-width;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        box-shadow: 3px 0 12px rgba(0, 0, 0, 0.2);
+        transform: translateX(-100%);
+        &.is-open-when-mobile {
+            transform: translateX(0)
+        }
+    }
+    .when-xs-btn {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .when-xs-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.4);
+    }
 }
-
-.fade-leave,
-.fade-enter-to {
-    opacity: 1;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: all 0.3s ease-in-out;
-}
-
-.slide-fade-enter-active {
-    transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
-    transform: translateX(10px);
-    opacity: 0;
-}
-
-.close-button {
-    /* Reset */
-    background-color: transparent;
-    border-color: transparent;
-
-    /* Cursor */
-    cursor: pointer;
-
-    /* Size */
-    height: 32px;
-    width: 32px;
-
-    /* Used to position the inner */
-    position: relative;
-}
-
-.close-button__line {
-    /* Background color */
-    background-color: #fff;
-    border-radius: 3px;
-
-    /* Position */
-    position: absolute;
-
-    /* Size */
-    height: 1px;
-    width: 100%;
-}
-
-.close-button__line--first {
-    /* Position */
-    left: 0px;
-    top: 50%;
-    transform: translate(0%, -50%) rotate(45deg);
-
-    /* Size */
-    height: 5px;
-    width: 100%;
-}
-
-.close-button__line--second {
-    /* Position */
-    left: 50%;
-    top: 0px;
-    transform: translate(-50%, 0%) rotate(45deg);
-
-    /* Size */
-    height: 100%;
-    width: 5px;
-}
-
