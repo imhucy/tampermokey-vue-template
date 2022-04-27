@@ -4,11 +4,12 @@ const moment = require('moment')
 
 const colors = require('colors')
 const webpack = require('webpack')
-    // vue-loader 插件
+// vue-loader 插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const commonConfig = require('./webpack.common')
 const monkey = require('./monkey.dev.config')
 if (!fs.existsSync('test'))
-    fs.mkdirSync('test')
+  fs.mkdirSync('test')
 fs.writeFileSync('./test/header.js', monkey.buildedHeader())
 
 // eslint-disable-next-line no-console
@@ -19,6 +20,7 @@ console.log(
 )
 
 module.exports = {
+  ...commonConfig,
   entry: monkey.config.entry,
   output: {
     path: path.resolve(__dirname, 'test'),

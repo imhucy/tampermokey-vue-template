@@ -6,10 +6,11 @@ const BannerPlugin = require('webpack/lib/BannerPlugin')
 // vue-loader 插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const monkey = require('./monkey.config')
-
+const commonConfig = require('./webpack.common')
 // eslint-disable-next-line no-console
 console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 module.exports = {
+  ...commonConfig,
   entry: monkey.config.entry,
   output: {
     path: path.resolve(__dirname, 'dist'),

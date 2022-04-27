@@ -41,6 +41,8 @@ $aside-width: 200px;
         left: 0;
         bottom: 0;
         opacity: 0;
+        user-select: none;
+        pointer-events: none;
         .icon-menu,
         .icon-menu__line {
             opacity: 0;

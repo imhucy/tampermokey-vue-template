@@ -42,7 +42,7 @@ export default {
 </script>
 <template>
   <transition name="fade" mode="out-in">
-    <div v-if="isOpen > 1" class="tm-main-pages">
+    <div v-if="isOpen >= 1" class="tm-main-pages">
       <div class="tm-main-pages__nav">
         <div
           v-for="nav in pages"

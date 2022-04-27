@@ -59,6 +59,9 @@ export default {
 
 <template>
   <div class="tm-main-container">
+    <tm-page v-model="currentPage" :is-open.sync="isOpen" :pages="pageList">
+      <component :is="currentPage"></component>
+    </tm-page>
     <div
       class="tm-main-start-ball"
       :class="['is-open-' + isOpen]"
@@ -71,8 +74,5 @@ export default {
         <div class="icon-menu__line"></div>
       </div>
     </div>
-    <tm-page v-model="currentPage" :is-open.sync="isOpen" :pages="pageList">
-      <component :is="currentPage"></component>
-    </tm-page>
   </div>
 </template>
